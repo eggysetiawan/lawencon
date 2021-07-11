@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -24,7 +26,15 @@ class UserSeeder extends Seeder
             'password' => bcrypt('superadmin#'), // password
             'remember_token' => Str::random(10),
         ];
+        $superadmins = User::create($superadmin);
 
-        User::create($superadmin);
+        $superadminRole = Role::create([
+            'name' => 'superadmin',
+        ]);
+        $superadminPermission = Permission::create([
+            'name' => 'openworld',
+        ]);
+        $superadmins->assignRole($superadminRole);
+        $superadminRole->givePermissionTo($superadminPermission);
     }
 }
