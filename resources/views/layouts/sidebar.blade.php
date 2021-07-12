@@ -34,7 +34,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -62,14 +62,24 @@
                 </a>
               </li>
             </ul>
+          </li> --}}
+
+          <li class="nav-item">
+            <a href="{{ route('home') }}" class="nav-link{{ request()->is('home') ? ' active':'' }}">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Dashboard
+                {{-- <span class="right badge badge-danger">New</span> --}}
+              </p>
+            </a>
           </li>
 
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('users.index') }}" class="nav-link{{ request()->is('users') ? ' active': '' }}">
+              <i class="nav-icon fas fa-cogs"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Management User
+                {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
             </a>
           </li>

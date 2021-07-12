@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $superadmin = [
-            'name' => 'Superadmin',
+            'name' => 'Rahmat Setiawan',
             'username' => 'superadmin',
             'email' => 'setiawaneggy@gmail.com',
             'mobile' => '081387239119',
@@ -27,6 +27,8 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ];
         $superadmins = User::create($superadmin);
+
+
 
         $superadminRole = Role::create([
             'name' => 'superadmin',

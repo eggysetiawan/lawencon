@@ -23,8 +23,11 @@
 
     <!-- Main content -->
     <section class="content">
+<div class="container-fluid">
+
 @yield('content')
-    </section>
+</div>
+</section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
