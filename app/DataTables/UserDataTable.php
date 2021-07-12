@@ -27,6 +27,9 @@ class UserDataTable extends DataTable
                     'user' => $user
                 ]);
             })
+            ->editColumn('role', function (User $user) {
+                return join(' - ', array_unique($user->roles->pluck('name')->toArray()));
+            })
             ->rawColumns(['action']);;
     }
 
@@ -39,7 +42,7 @@ class UserDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()
-            // ->with(['roles', 'permission'])
+            ->with(['roles'])
             ->latest();
     }
 
@@ -94,12 +97,19 @@ class UserDataTable extends DataTable
             Column::make('name')
                 ->title(__('Name')),
 
+            Column::make('username')
+                ->title(__('Username')),
+
+            Column::make('email')
+                ->title(__('Email')),
+
+            Column::make('mobile')
+                ->title(__('Mobile')),
+
             Column::make('role')
-                ->title('Role'),
-
-            // Column::make('role')
-            //     ->title('Role'),
-
+                ->title('Role')
+                ->orderable(false)
+                ->searchable(false)
 
         ];
     }

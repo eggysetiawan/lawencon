@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ $title ?? 'Home' }} | {{ config('app.name','Laravel') }}</title>
 @include('layouts.head')
@@ -23,16 +23,21 @@
 
     <!-- Main content -->
     <section class="content">
-<div class="container-fluid">
-
-@yield('content')
-</div>
-</section>
+        <div class="container-fluid">
+            @yield('content')
+        </div>
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  @include('layouts.footer')
+  {{-- @include('layouts.footer') --}}
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.1.0
+    </div>
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -44,6 +49,7 @@
 
 @include('layouts.script')
 @stack('script')
+
 
 </body>
 </html>

@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', LandingPageController::class);
-
+Route::view('/', 'auth.login');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
 
-Route::resource('users', UserController::class)->parameters([
-    'users' => 'user:username',
-]);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('users', UserController::class)->parameters([
+        'users' => 'user:username',
+    ]);
+});

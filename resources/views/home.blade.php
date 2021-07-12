@@ -1,6 +1,6 @@
 @extends('layouts.app',[
     'page' => 'Dashboard',
-    'title' => 'Dashboard',
+    'title' => 'Dashboard'
 ])
 
 @section('breadcrumb')
@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <!-- Default box -->
@@ -37,5 +36,4 @@
         <!-- /.card -->
       </div>
     </div>
-  </div>
 @endsection

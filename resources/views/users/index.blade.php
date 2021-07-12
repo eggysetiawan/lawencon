@@ -1,12 +1,12 @@
 @extends('layouts.app',[
     'page' => 'Management User',
-    'title' => 'Management User',
+    'title' => 'Management User'
 ])
 
 @section('breadcrumb')
 <li class="breadcrumb-item active">Management User</li>
-
 @endsection
+
 @section('content')
 
 
@@ -37,7 +37,9 @@
 
 
 
+
+
 @endsection
 @push('script')
-    {!! $dataTable->scripts() !!}
+{!! $dataTable->scripts() !!}
 @endpush
