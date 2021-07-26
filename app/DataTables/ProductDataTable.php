@@ -2,14 +2,13 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class ProductDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,13 +21,13 @@ class UserDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->editColumn('action', function (User $user) {
-                return view('users.partials.action', [
-                    'user' => $user
+            ->editColumn('action', function (Product $product) {
+                return view('products.partials.action', [
+                    'product' => $product
                 ]);
             })
-            ->editColumn('role', function (User $user) {
-                return join(' - ', array_unique($user->roles->pluck('name')->toArray()));
+            ->editColumn('date', function (Product $product) {
+                return $product->date->format('d F, Y');
             })
             ->rawColumns(['action']);
     }
@@ -36,13 +35,15 @@ class UserDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \User $model
+     * @param \Product $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Product $model)
     {
         return $model->newQuery()
-            ->with(['roles'])
+            ->when($this->search != '', function ($query) {
+                return $query->where('name', 'like', "%$this->search%");
+            })
             ->latest();
     }
 
@@ -54,10 +55,11 @@ class UserDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('user-table')
+            ->setTableId('product-table')
             ->minifiedAjax()
             ->parameters([
                 'stateSave' => true,
+                'searching' => false,
                 'dom'          => "B<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>rtip",
                 'buttons'      => ['reload', 'reset'],
                 'order'   => [0, 'desc'],
@@ -95,22 +97,16 @@ class UserDataTable extends DataTable
                 ->addClass('text-center'),
 
             Column::make('name')
-                ->title(__('Name')),
+                ->title(__('Product Name')),
 
-            Column::make('username')
-                ->title(__('Username')),
+            Column::make('code')
+                ->title(__('Code')),
 
-            Column::make('email')
-                ->title(__('Email')),
+            Column::make('amount')
+                ->title(__('Amount')),
 
-            Column::make('mobile')
-                ->title(__('Mobile')),
-
-            Column::make('role')
-                ->title('Role')
-                ->orderable(false)
-                ->searchable(false)
-
+            Column::make('date')
+                ->title(__('Date')),
         ];
     }
 
@@ -121,6 +117,6 @@ class UserDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'User_' . date('YmdHis');
+        return 'Product_' . date('YmdHis');
     }
 }
