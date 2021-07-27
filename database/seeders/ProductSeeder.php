@@ -14,6 +14,14 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()->count(100)->create();
+        $value = "1225441";
+
+        function test($value)
+        {
+            for ($i = 0; $i > strlen($value); $i++) {
+                echo substr($value, $i, $i + 1) . substr("000000", 1, (strlen($value) - $i));
+            }
+        }
+        // Product::factory()->count(100)->create();
     }
 }
